@@ -24,6 +24,6 @@ const { sequelize } = require('./src/db.js');
 
 
   server.listen(3001, () => {
-    sequelize.sync({force: false})
+    sequelize.sync({force: true})
     console.log('Server listening at 3001'); // eslint-disable-line no-console
   });

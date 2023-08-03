@@ -1,6 +1,6 @@
 const axios = require("axios")
-const { cleanData } = require("../utils/cleaners");
-const { Dog } = require("../db");
+const { cleanData, temperamentCleaner } = require("../utils/cleaners");
+const { Dog, Temperament } = require("../db");
 const { Op } = require("sequelize");
 require("dotenv").config();
 const { API_KEY } = process.env;
@@ -47,11 +47,44 @@ const searchFromApi = async (breed) => {
     return filterByName;
 }
 
+const getBreedDetailApi = async (idRaza) => {
+    const idParsed = +idRaza
+    const {data} = await axios(`https://api.thedogapi.com/v1/breeds`, 
+    {
+            headers: {
+                "x-api-key": API_KEY
+            },
+    }
+    );
+    const breedDetail = await data.filter((breed) => breed.id === idParsed);
+    return breedDetail[0];
+}
+
+const getBreedDetailDb = async (idRaza) =>  {
+    const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+    const test = uuidRegex.test(idRaza);
+    if(test === false) return"No se encontraron coincidencias";
+    const response = await Dog.findAll({where: {id: idRaza}})
+    return response[0];
+}
+
+const getTemperaments = async() => {
+    const {data} = await axios("https://api.thedogapi.com/v1/breeds", {
+        headers: {
+            "x-api-key": API_KEY
+        },
+    })
+    const cleanedData = temperamentCleaner(data);
+    const createdTemperaments = Temperament.bulkCreate(cleanedData.map(temp=> ({name: temp})));
+    return createdTemperaments;
+} 
 
 module.exports = {
     getAllDogs,
     getAllDogsFromDB,
     searchFromDB,
     searchFromApi,
-
+    getBreedDetailApi,
+    getBreedDetailDb,
+    getTemperaments
 }

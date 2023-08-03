@@ -1,11 +1,14 @@
-const { getAllDogs, searchFromDB, searchFromApi, getAllDogsFromDB } = require("../controllers/dogsControllers");
+const { 
+    getAllDogs,
+    searchFromDB,
+    searchFromApi,
+    getAllDogsFromDB,
+    getBreedDetailApi,
+    getBreedDetailDb,
+    getTemperaments
+} = require("../controllers/dogsControllers");
 
-// ToDo Hacer una solicitud axios.get a https://api.thedogapi.com/v1/breeds como header
-// ToDo sacar response.data 
-// ToDo Ver cómo responde la api con esa data 
-// ToDo Crear una función para limpiar la data
-// ToDo Responder con la data limpia
-// ToDo manejar el error
+
 const getDogsHandler = async (req, res) => {
     try {
         const apiResponse = await getAllDogs()
@@ -18,7 +21,7 @@ const getDogsHandler = async (req, res) => {
 }
 
 const searchHandler = async (req, res) => {
-    const {breed} = req.query;
+    const { breed } = req.query;
     try {
         const dbResponse = await searchFromDB(breed);
         const apiResponse = await searchFromApi(breed);
@@ -31,7 +34,32 @@ const searchHandler = async (req, res) => {
     }
 };
 
+const getBreedDetailHandler = async (req, res) => {
+    const { idRaza } = req.params
+    try {
+        const apiResponse = await getBreedDetailApi(idRaza);
+        const dbResponse = await getBreedDetailDb(idRaza)
+        if (!dbResponse && !apiResponse) {
+            throw new Error('No se encontraron coincidencias');
+        }
+        apiResponse ? res.status(200).json(apiResponse) : res.status(200).json(dbResponse);
+    } catch (error) {
+        res.status(404).json({ error: error.message })
+    }
+}
+
+const getTemperamentsHandler = async (req, res) => {
+    try {
+        const temperaments = await getTemperaments()
+        res.status(201).json(`Se crearon los temperamentos correctamente`);
+    } catch (error) {
+        res.status(404).json({error: error.message})
+    }
+}
+
 module.exports = {
     getDogsHandler,
-    searchHandler
+    searchHandler,
+    getBreedDetailHandler,
+    getTemperamentsHandler
 }

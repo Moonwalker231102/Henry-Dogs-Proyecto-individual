@@ -17,6 +17,17 @@ const cleanData = (data, source) => {
     return cleanedData;
 };
 
+const temperamentCleaner = (data) => {
+    const cleanedDataRaw = data.map(breed => breed.temperament)
+    const separateWords = cleanedDataRaw
+    .filter(str => str)
+    .flatMap(str => str.split(", "));
+    const cleanedData = separateWords.filter((word, index, arr) => arr.indexOf(word) === index);
+    cleanedData.sort();
+    return cleanedData
+}
+
 module.exports = {
     cleanData,
+    temperamentCleaner
 };
