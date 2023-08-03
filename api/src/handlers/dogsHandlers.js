@@ -5,6 +5,7 @@ const {
     getAllDogsFromDB,
     getBreedDetailApi,
     getBreedDetailDb,
+    createTemperaments,
     getTemperaments
 } = require("../controllers/dogsControllers");
 
@@ -48,12 +49,21 @@ const getBreedDetailHandler = async (req, res) => {
     }
 }
 
+const createTemperamentsHandler = async (req, res) => {
+    try {
+        const createdTemperaments = await createTemperaments();
+        res.status(201).json({ message: 'Temperamentos creados correctamente', temperaments: createdTemperaments });
+    } catch (error) {
+        res.status(500).json({error: error.message})
+    }
+}
+
 const getTemperamentsHandler = async (req, res) => {
     try {
-        const temperaments = await getTemperaments()
-        res.status(201).json(`Se crearon los temperamentos correctamente`);
+        const temperaments = await getTemperaments();
+        res.status(200).json(temperaments);
     } catch (error) {
-        res.status(404).json({error: error.message})
+        res.status(500).json({error: error.message})
     }
 }
 
@@ -61,5 +71,6 @@ module.exports = {
     getDogsHandler,
     searchHandler,
     getBreedDetailHandler,
+    createTemperamentsHandler,
     getTemperamentsHandler
 }

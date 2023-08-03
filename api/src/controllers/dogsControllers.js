@@ -5,6 +5,8 @@ const { Op } = require("sequelize");
 require("dotenv").config();
 const { API_KEY } = process.env;
 
+
+
 const getAllDogs = async () => {
     const { data } = await axios("https://api.thedogapi.com/v1/breeds", {
         headers: {
@@ -14,12 +16,17 @@ const getAllDogs = async () => {
     const cleanedData = cleanData(data, "API");
     return cleanedData;
 }
+
+
+
 const getAllDogsFromDB = async () => {
     const dbDogs = await Dog.findAll()
     const allBreeds = cleanData(dbDogs, "DB");
 
     return allBreeds;
 }
+
+
 
 const searchFromDB = async (breed) => {
     const data = await Dog.findAll({
@@ -32,6 +39,8 @@ const searchFromDB = async (breed) => {
     const matchingBreeds = cleanData(data, "DB");
     return matchingBreeds;
 }
+
+
 
 const searchFromApi = async (breed) => {
     const { data } = await axios(`https://api.thedogapi.com/v1/breeds`, {
@@ -47,6 +56,8 @@ const searchFromApi = async (breed) => {
     return filterByName;
 }
 
+
+
 const getBreedDetailApi = async (idRaza) => {
     const idParsed = +idRaza
     const {data} = await axios(`https://api.thedogapi.com/v1/breeds`, 
@@ -60,6 +71,8 @@ const getBreedDetailApi = async (idRaza) => {
     return breedDetail[0];
 }
 
+
+
 const getBreedDetailDb = async (idRaza) =>  {
     const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
     const test = uuidRegex.test(idRaza);
@@ -68,16 +81,25 @@ const getBreedDetailDb = async (idRaza) =>  {
     return response[0];
 }
 
-const getTemperaments = async() => {
+
+
+const createTemperaments = async() => {
     const {data} = await axios("https://api.thedogapi.com/v1/breeds", {
         headers: {
             "x-api-key": API_KEY
         },
     })
     const cleanedData = temperamentCleaner(data);
-    const createdTemperaments = Temperament.bulkCreate(cleanedData.map(temp=> ({name: temp})));
+    const createdTemperaments = await Temperament.bulkCreate(cleanedData.map(temp=> ({name: temp})));
     return createdTemperaments;
 } 
+
+const getTemperaments = async () => {
+    const temperaments = await Temperament.findAll()
+    if(!temperaments.length) throw new Error("No se encontraron temperamentos en la base de datos")
+    return temperaments;
+}
+
 
 module.exports = {
     getAllDogs,
@@ -86,5 +108,6 @@ module.exports = {
     searchFromApi,
     getBreedDetailApi,
     getBreedDetailDb,
+    createTemperaments,
     getTemperaments
 }
