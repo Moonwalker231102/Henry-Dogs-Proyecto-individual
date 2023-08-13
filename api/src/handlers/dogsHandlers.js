@@ -5,8 +5,7 @@ const {
     getAllDogsFromDB,
     getBreedDetailApi,
     getBreedDetailDb,
-    createTemperaments,
-    getTemperaments
+    createBreedController
 } = require("../controllers/dogsControllers");
 
 
@@ -14,7 +13,7 @@ const getDogsHandler = async (req, res) => {
     try {
         const apiResponse = await getAllDogs()
         const dbResponse = await getAllDogsFromDB()
-        const response = [...apiResponse, ...dbResponse]
+        const response = [ ...dbResponse, ...apiResponse]
         return res.status(200).json(response);
     } catch (error) {
         res.status(500).json({ error: error.message })
@@ -49,28 +48,21 @@ const getBreedDetailHandler = async (req, res) => {
     }
 }
 
-const createTemperamentsHandler = async (req, res) => {
+const createBreedHandler = async (req, res) => {
+    const { image, name, height, weight, life_span, temperament} = req.body;
+    
     try {
-        const createdTemperaments = await createTemperaments();
-        res.status(201).json({ message: 'Temperamentos creados correctamente', temperaments: createdTemperaments });
+        const createBreed = await createBreedController( image, name, height, weight, life_span, temperament);
+        res.status(201).json({message: "La raza se creo correctamente: ", raza: createBreed})
     } catch (error) {
-        res.status(500).json({error: error.message})
+        res.status(400).json({error: error.message})
     }
 }
 
-const getTemperamentsHandler = async (req, res) => {
-    try {
-        const temperaments = await getTemperaments();
-        res.status(200).json(temperaments);
-    } catch (error) {
-        res.status(500).json({error: error.message})
-    }
-}
 
 module.exports = {
     getDogsHandler,
     searchHandler,
     getBreedDetailHandler,
-    createTemperamentsHandler,
-    getTemperamentsHandler
+    createBreedHandler,
 }

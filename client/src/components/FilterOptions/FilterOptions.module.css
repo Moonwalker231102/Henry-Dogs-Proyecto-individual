@@ -1,0 +1,43 @@
+/* Estilos para el modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Asegura que el modal esté encima de otros elementos */
+}
+
+.modalContent {
+  background-color: rgba(255, 255, 255,0.5);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  max-width: 80%; /* Ajusta el ancho según tus necesidades */
+}
+
+/* Estilos para los botones y select */
+.modalContent button,
+.modalContent select {
+  margin: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modalContent button:hover,
+.modalContent select:hover {
+  background-color: #0056b3;
+}
+
+.modalContent select {
+  width: 100%;
+}

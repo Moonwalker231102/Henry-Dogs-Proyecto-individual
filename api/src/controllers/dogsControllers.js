@@ -1,6 +1,6 @@
 const axios = require("axios")
-const { cleanData, temperamentCleaner } = require("../utils/cleaners");
-const { Dog, Temperament } = require("../db");
+const { cleanData } = require("../utils/cleaners");
+const { Dog, Temperament} = require("../db");
 const { Op } = require("sequelize");
 require("dotenv").config();
 const { API_KEY } = process.env;
@@ -20,7 +20,9 @@ const getAllDogs = async () => {
 
 
 const getAllDogsFromDB = async () => {
-    const dbDogs = await Dog.findAll()
+    const dbDogs = await Dog.findAll({
+        include: Temperament,
+    });
     const allBreeds = cleanData(dbDogs, "DB");
 
     return allBreeds;
@@ -34,11 +36,14 @@ const searchFromDB = async (breed) => {
             name: {
                 [Op.iLike]: `%${breed}%`,
             },
-        }
-    })
+        },
+        include: Temperament, // This includes the Temperament association
+    });
+
     const matchingBreeds = cleanData(data, "DB");
     return matchingBreeds;
 }
+
 
 
 
@@ -82,24 +87,23 @@ const getBreedDetailDb = async (idRaza) =>  {
 }
 
 
-
-const createTemperaments = async() => {
-    const {data} = await axios("https://api.thedogapi.com/v1/breeds", {
-        headers: {
-            "x-api-key": API_KEY
-        },
+const createBreedController = async (image, name, height, weight, life_span, temperament) => {
+    const createdDog = await Dog.create({
+        image,
+        name,
+        height,
+        weight,
+        life_span,
+        temperament
     })
-    const cleanedData = temperamentCleaner(data);
-    const createdTemperaments = await Temperament.bulkCreate(cleanedData.map(temp=> ({name: temp})));
-    return createdTemperaments;
-} 
-
-const getTemperaments = async () => {
-    const temperaments = await Temperament.findAll()
-    if(!temperaments.length) throw new Error("No se encontraron temperamentos en la base de datos")
-    return temperaments;
+    const temperaments = await Promise.all(
+        temperament.map(await (temp => {
+            return Temperament.findOrCreate({where: {name: temp}})
+        } ))
+    )
+    await createdDog.addTemperaments(temperaments.map(t => t[0]));
+    return createdDog
 }
-
 
 module.exports = {
     getAllDogs,
@@ -108,6 +112,5 @@ module.exports = {
     searchFromApi,
     getBreedDetailApi,
     getBreedDetailDb,
-    createTemperaments,
-    getTemperaments
+    createBreedController
 }

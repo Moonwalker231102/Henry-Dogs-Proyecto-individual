@@ -1,0 +1,36 @@
+.DogCard {
+    text-decoration-line: none;
+    color: #000;
+    background-color: #99C0E1;
+    background-size: cover;
+    background-position: center;
+    box-shadow: inset 0 0 10px 0 var(--yellow);
+    width: 300px; /* Tamaño fijo del contenedor */
+    height: 700px; /* Tamaño fijo del contenedor */
+    padding: 0.5rem;
+    border-radius: 1.5rem;
+    transform: scale(0.6);
+    margin-top: 1rem;
+    margin-bottom: -15rem;
+    margin-left: -5rem;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    font-family: "Austie";
+
+  }
+
+.dogImage{
+    transform: scale(0.6);
+    padding-top: 3rem;
+    margin-bottom: .5rem;
+    width: 20rem; /* Establece un ancho fijo para las imágenes */
+    height: 20rem; /* Establece una altura fija para las imágenes */
+}
+
+.temperament{
+    display: grid;
+    grid-auto-flow: column;
+}

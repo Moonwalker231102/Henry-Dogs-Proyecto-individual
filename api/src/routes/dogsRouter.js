@@ -3,22 +3,18 @@ const {
     getDogsHandler,
     searchHandler,
     getBreedDetailHandler,
-    createTemperamentsHandler,
-    getTemperamentsHandler
+    createBreedHandler,
 } = require("../handlers/dogsHandlers");
+const { validateBreed } = require("../utils/validate");
 const dogsRouter = Router();
 
 dogsRouter.get("/", getDogsHandler)
 
 dogsRouter.get("/search", searchHandler);
 
-dogsRouter.get("/temperaments", getTemperamentsHandler )
-
 dogsRouter.get("/:idRaza", getBreedDetailHandler);
 
-dogsRouter.post ("/temperaments",  createTemperamentsHandler);
+dogsRouter.post("/", validateBreed, createBreedHandler);
 
-dogsRouter.post("/", (req, res) => {
-    res.send("NIY: Esta ruta permite añadir una raza de perro a la DB")
-})
+
 module.exports = dogsRouter;

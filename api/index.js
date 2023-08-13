@@ -23,7 +23,7 @@ const { sequelize } = require('./src/db.js');
 // Syncing all the models at once.
 
 
-  server.listen(3001, () => {
-    sequelize.sync({force: true})
+server.listen(3001, () => {
+    sequelize.sync({force: false})
     console.log('Server listening at 3001'); // eslint-disable-line no-console
-  });
+});

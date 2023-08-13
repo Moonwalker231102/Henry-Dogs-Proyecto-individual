@@ -1,0 +1,19 @@
+.SearchBar {
+    display: flex;
+    margin-right: -2rem;
+    margin-left: 26rem;
+}
+
+.Input {
+    margin-right: 2px;
+    padding: .5rem 1rem;
+    border-color:#d06aff;
+    border-radius: 2rem;
+    font-family: "Austie";
+    font-size: medium;
+}
+
+.search{
+    max-height: 4rem;
+    margin-left: .5rem;
+}
