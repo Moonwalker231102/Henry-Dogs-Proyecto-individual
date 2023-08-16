@@ -6,14 +6,13 @@ import CreateBreedForm from './views/Form/CreateBreedForm';
 import Detail from './components/Detail/Detail';
 const App = () => {
   return (
-    <div>
       <Routes>
         <Route path="/" element={<Landing/>}/>
         <Route path="/home" element={<Home/>}/>
         <Route path="/create" element={<CreateBreedForm/>}/>
         <Route path="/detail/:id" element={<Detail/>}/>
       </Routes>
-    </div>
+    
   )
 }
 

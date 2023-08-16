@@ -4,7 +4,7 @@ import { searchDog, getDogs } from "../../redux/actions";
 import styles from "./SearchBar.module.css"
 
 const SearchBar = () => {
-    const imagePath = new URL('../../assets/search-icon-svg-28.jpg', import.meta.url).href;
+    const imagePath = new URL('../../assets/5509943-200.png', import.meta.url).href;
     const [searchTerm, setSearchTerm] = useState("");
     const dispatch = useDispatch();
     

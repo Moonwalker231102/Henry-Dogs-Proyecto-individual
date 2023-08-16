@@ -3,27 +3,13 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const router = require('./routes/index.js');
-const cloudinary = require("cloudinary").v2;
-require("dotenv").config
 const server = express();
-const {
-  CLOUD_NAME,
-  CLOUD_API_KEY,
-  API_SECRET
-} = process.env
-server.name = 'API';
+
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
-
-// cloudinary config
-cloudinary.config({ 
-  cloud_name: CLOUD_NAME, 
-  api_key: CLOUD_API_KEY, 
-  api_secret: API_SECRET 
-});
 
 
 // Configurar el middleware de CORS

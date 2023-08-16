@@ -41,6 +41,10 @@ const FilterOptions = ({ isOpen, onClose }) => {
             setIsCreatedFilter(true);
             dispatch(filterByCreated(false));
         }
+        if(selectedValue === ""){
+            setCreatedFilterValue("");
+            dispatch(getDogs())
+        }
     };
 
     const handleTemperamentChange = (event) => {
@@ -105,12 +109,9 @@ const FilterOptions = ({ isOpen, onClose }) => {
                         <input
                             type="radio"
                             name="createdFilter"
-                            value="allBreeds"
-                            checked={!isCreatedFilter}
-                            onChange={() => {
-                                setIsCreatedFilter(false);
-                                setCreatedFilterValue("");
-                            }}
+                            value=""
+                            checked={createdFilterValue === ""}
+                            onChange={handleFilterCreated}
                         />
                         All Breeds
                     </label>

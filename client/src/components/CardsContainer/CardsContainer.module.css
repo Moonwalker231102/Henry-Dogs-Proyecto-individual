@@ -1,9 +1,9 @@
 .container {
+    margin-top: -0.5em;
+    padding: 1rem;
     display: grid;
     grid-template-columns: auto auto auto auto;
     grid-template-rows: auto auto auto auto;
-    grid-gap: 3rem;
-    margin-top: 0.5rem;
     margin-bottom: 4rem;
     margin-left: 5rem;
 }
@@ -11,5 +11,20 @@
 .paginationButtons {
     margin-top: 10rem; 
     align-self: end; 
-    grid-column: span 4; 
+    grid-column: span 4;
+}
+
+.button{
+    border-radius: 2rem;
+    border-color: #996b42;
+    font-family: "Austie";
+    font-weight: bold;
+    background-color: transparent;
+    margin-right: 0.8rem;
+    transform: scale(1.2);
+}
+
+.button:hover{
+    cursor: pointer;
+    background-color: #ffb1ad;
 }

@@ -39,8 +39,8 @@ const CardsContainer = () => {
             })
             }
             <div className={styles.paginationButtons}>
-                <button onClick={handleClickPrev} disabled={currentPage === 1}>Prev</button>
-                <button onClick={handleClickNext} disabled={(currentPage * cardsPerPage) >= dogs.length}>Next</button>
+                <button onClick={handleClickPrev} disabled={currentPage === 1} className={styles.button}>Prev</button>
+                <button onClick={handleClickNext} disabled={(currentPage * cardsPerPage) >= dogs.length} className={styles.button}>Next</button>
             </div>
         </div>
     )

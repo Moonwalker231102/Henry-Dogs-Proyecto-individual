@@ -6,11 +6,13 @@
 
 .Input {
     margin-right: 2px;
+    margin-left: -38rem;
     padding: .5rem 1rem;
-    border-color:#d06aff;
+    border-color: #ffe9cf;
     border-radius: 2rem;
     font-family: "Austie";
     font-size: medium;
+    background-color: #ceaa7e;
 }
 
 .search{
