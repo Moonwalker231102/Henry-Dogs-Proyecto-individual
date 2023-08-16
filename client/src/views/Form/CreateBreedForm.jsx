@@ -53,12 +53,8 @@ const CreateBreedForm = () => {
         temperament: "",
     });
 
-
-
-
-
     return (
-        <form onSubmit={(event) => handleSubmit(event, formData)}>
+        <form onSubmit={(event) => handleSubmit(event, formData, setErrors)}>
             <div className={styles.fileInputContainer}>
                 <label htmlFor="image" className={styles.fileInputLabel}>
                     Seleccionar Imagen
@@ -111,7 +107,7 @@ const CreateBreedForm = () => {
                 error={errors["weight.min"]}
             />
             <InputField
-                label="Min weight"
+                label="Max weight"
                 id="weight.max"
                 name="weight.max"
                 type="number"

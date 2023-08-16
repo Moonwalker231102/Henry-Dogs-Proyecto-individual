@@ -1,6 +1,5 @@
 import validateField from "./validateField";
 import createBreed from "./createBreed";
-// EventHandlers.js
 
 export const handleInputChange = (event, formData, setFormData, setErrors) => {
     const { name, value } = event.target;
@@ -14,7 +13,7 @@ export const handleInputChange = (event, formData, setFormData, setErrors) => {
             ...prevData,
             [fieldCategory]: {
                 ...prevData[fieldCategory],
-                [subFieldName]: value.toString(), // Convert to string using toString()
+                [subFieldName]: value.toString(),
             },
         }));
     } else {
@@ -26,7 +25,6 @@ export const handleInputChange = (event, formData, setFormData, setErrors) => {
 
     validateField(name, value, setErrors, formData);
 };
-
 
 const uploadImage = async (file) => {
     const formData = new FormData();
@@ -68,8 +66,13 @@ export const handleImageChange = async (event, setFormData, setImagePreview) => 
     }
 }
 
-export const handleSubmit = async (event, formData) => {
+export const handleSubmit = async (event, formData, setErrors) => {
     event.preventDefault();
+
+    const errors = {};
+
+    // Validate all fields before submitting
+
 
     // Convert height and weight objects to strings in the desired format
     const heightString = `${formData.height.min} - ${formData.height.max}`;
@@ -89,5 +92,3 @@ export const handleSubmit = async (event, formData) => {
         console.error("Error:", error);
     }
 };
-
-

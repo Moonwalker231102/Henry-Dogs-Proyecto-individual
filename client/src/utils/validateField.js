@@ -25,17 +25,6 @@ const validateField = (name, value, setErrors, formData) => {
 
         case "height.min":
         case "height.max":
-            if (isNaN(value) || value.trim() === "") {
-                errors[name] = "Ingrese un valor numérico válido.";
-            } else {
-                errors[name] = "";
-
-                if (formData.height.min !== "" && formData.height.max !== "" && Number(formData.height.max) < Number(formData.height.min)) {
-                    errors["height.max"] = "El valor máximo no puede ser menor que el valor mínimo.";
-                }
-            }
-            break;
-
         case "weight.min":
         case "weight.max":
             if (isNaN(value) || value.trim() === "") {
@@ -43,8 +32,16 @@ const validateField = (name, value, setErrors, formData) => {
             } else {
                 errors[name] = "";
 
-                if (formData.weight.min !== "" && formData.weight.max !== "" && Number(formData.weight.max) < Number(formData.weight.min)) {
-                    errors["weight.max"] = "El valor máximo no puede ser menor que el valor mínimo.";
+                const fieldNameParts = name.split(".");
+                const fieldCategory = fieldNameParts[0];
+                const subFieldName = fieldNameParts[1];
+
+                if (
+                    formData[fieldCategory].min !== "" &&
+                    formData[fieldCategory].max !== "" &&
+                    Number(formData[fieldCategory].max) <= Number(formData[fieldCategory].min)
+                ) {
+                    errors[`${fieldCategory}.max`] = "El valor máximo no puede ser menor que el valor mínimo.";
                 }
             }
             break;
@@ -57,13 +54,11 @@ const validateField = (name, value, setErrors, formData) => {
             }
             break;
 
-        case "temperament1":
-        case "temperament2":
-        case "temperament3":
-            if (!value) {
-                errors[name] = "Seleccione un temperamento.";
+        case "temperament":
+            if (value.length === 0) {
+                errors.temperament = "Seleccione al menos un temperamento.";
             } else {
-                errors[name] = "";
+                errors.temperament = "";
             }
             break;
 
