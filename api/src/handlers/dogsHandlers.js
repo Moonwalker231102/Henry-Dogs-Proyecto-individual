@@ -42,6 +42,7 @@ const getBreedDetailHandler = async (req, res) => {
         if (!dbResponse && !apiResponse) {
             throw new Error('No se encontraron coincidencias');
         }
+        console.log(dbResponse)
         apiResponse ? res.status(200).json(apiResponse) : res.status(200).json(dbResponse);
     } catch (error) {
         res.status(404).json({ error: error.message })
@@ -49,7 +50,7 @@ const getBreedDetailHandler = async (req, res) => {
 }
 
 const createBreedHandler = async (req, res) => {
-    const { image, name, height, weight, life_span, temperament} = req.body;
+    const {image, name, height, weight, life_span, temperament} = req.body;
     
     try {
         const createBreed = await createBreedController( image, name, height, weight, life_span, temperament);

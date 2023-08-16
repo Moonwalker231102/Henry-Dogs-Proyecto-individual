@@ -1,0 +1,32 @@
+.fileInputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.fileInputLabel{
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.fileInputLabel:hover {
+    background-color: #0056b3;
+}
+
+.fileInput {
+    display: none; /* Ocultar el campo de entrada real */
+}
+.image{
+    max-height: 3rem;
+    max-width: 3rem;
+    border-radius: .5rem;
+}
+.error {
+    color: red;
+    margin-top: 5px;
+}

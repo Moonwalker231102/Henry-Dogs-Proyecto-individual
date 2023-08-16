@@ -1,8 +1,9 @@
 const axios = require("axios")
 const { cleanData } = require("../utils/cleaners");
-const { Dog, Temperament} = require("../db");
+const { Dog, Temperament } = require("../db");
 const { Op } = require("sequelize");
 require("dotenv").config();
+const cloudinary = require("cloudinary");
 const { API_KEY } = process.env;
 
 
@@ -65,12 +66,12 @@ const searchFromApi = async (breed) => {
 
 const getBreedDetailApi = async (idRaza) => {
     const idParsed = +idRaza
-    const {data} = await axios(`https://api.thedogapi.com/v1/breeds`, 
-    {
+    const { data } = await axios(`https://api.thedogapi.com/v1/breeds`,
+        {
             headers: {
                 "x-api-key": API_KEY
             },
-    }
+        }
     );
     const breedDetail = await data.filter((breed) => breed.id === idParsed);
     return breedDetail[0];
@@ -78,13 +79,14 @@ const getBreedDetailApi = async (idRaza) => {
 
 
 
-const getBreedDetailDb = async (idRaza) =>  {
+const getBreedDetailDb = async (idRaza) => {
     const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
     const test = uuidRegex.test(idRaza);
-    if(test === false) return"No se encontraron coincidencias";
-    const response = await Dog.findAll({where: {id: idRaza}})
+    if (test === false) return "No se encontraron coincidencias";
+    const response = await Dog.findAll({ where: { id: idRaza }, include: Temperament })
     return response[0];
 }
+
 
 
 const createBreedController = async (image, name, height, weight, life_span, temperament) => {
@@ -95,15 +97,18 @@ const createBreedController = async (image, name, height, weight, life_span, tem
         weight,
         life_span,
         temperament
-    })
+    });
+
     const temperaments = await Promise.all(
-        temperament.map(await (temp => {
-            return Temperament.findOrCreate({where: {name: temp}})
-        } ))
-    )
+        temperament.map(async (temp) => {
+            return Temperament.findOrCreate({ where: { name: temp } });
+        })
+    );
+
     await createdDog.addTemperaments(temperaments.map(t => t[0]));
-    return createdDog
-}
+    return createdDog;
+};
+
 
 module.exports = {
     getAllDogs,

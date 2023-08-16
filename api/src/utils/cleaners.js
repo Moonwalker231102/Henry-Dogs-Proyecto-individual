@@ -1,15 +1,20 @@
-require("dotenv").config();
-const img = "../assets/huella de perro.png";
+
 
 const cleanData = (data, source) => {
     const cleanedData = data.map((bred) => {
         const weightParts = source === "DB" ? bred.weight.split(" - ") : bred.weight.metric.split(" - ");
-        const heightParts = source === "DB"? bred.height.split(" - "): bred.height.metric.split(" - ");
+        const heightParts = source === "DB" ? bred.height.split(" - ") : bred.height.metric.split(" - ");
+        let imageSrc;
+        if (source === "DB") {
+            imageSrc = bred.image; // Usa la ruta de la imagen almacenada en la base de datos
+        } else {
+            imageSrc = bred.image.url;
+        }
 
         const cleanedItem = {
             id: bred.id,
             name: bred.name,
-            image: source === "DB" ? bred.image : bred.image.url,
+            image: imageSrc, // Usa directamente la ruta de la imagen
             weight: {
                 min: parseFloat(weightParts[0]),
                 max: parseFloat(weightParts[1]),
@@ -34,7 +39,6 @@ const cleanData = (data, source) => {
 
     return cleanedData;
 };
-
 
 
 const temperamentCleaner = (data) => {
