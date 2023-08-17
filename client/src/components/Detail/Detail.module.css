@@ -1,0 +1,51 @@
+.detailContainer {
+    background-color: #ffb48a; /* Color de fondo */
+    padding: 5rem;
+    margin: -5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.backLink {
+    color: #8b4513; /* Color pardo */
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    position: fixed; /* Cambio a posición fija */
+    margin-right: 2rem;
+    top: 20px; /* Ajusta la distancia desde la parte superior */
+    right: 20px; /* Ajusta la distancia desde la parte derecha */
+}
+
+.dogInfo {
+    background-color: #ffbf9a;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin: .5rem;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.breedName {
+    color: #8b4513; /* Color pardo */
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-family: "Austie";
+}
+
+.dogImage {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 2rem;
+    margin: 20px 0;
+}
+
+h2 {
+    color: #333; /* Color de texto oscuro */
+    font-size: 20px;
+    font-family: "Austie";
+    margin: 10px 0;
+}
+

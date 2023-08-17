@@ -1,0 +1,33 @@
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.label {
+    font-weight: bold;
+    color: #8b4513;
+    margin-bottom: 5px;
+    font-family: "Austie";
+}
+
+.input {
+    padding: 10px;
+    border: 1px solid #8b4513;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #8b4513;
+    width: 75%;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #b8860b;
+}
+
+.error {
+    color: #dc143c;
+    font-size: 12px;
+    font-family: "Austie";
+}

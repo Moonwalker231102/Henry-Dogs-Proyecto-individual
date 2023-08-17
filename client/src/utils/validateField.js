@@ -1,47 +1,43 @@
-const validateField = (name, value, setErrors, formData) => {
-    const errors = { ...setErrors };
+const validateField = (name, value, formData) => {
+    const errors = {}
 
-    switch (name) {
-        case "image":
-            if (!value) {
-                errors.image = "Por favor, seleccione una imagen.";
-            } else {
-                errors.image = "";
 
-                const maxSizeInBytes = 3 * 1024 * 1024; // 3 megabytes
-                if (value.size > maxSizeInBytes) {
-                    errors.image = "El tamaño de la imagen no debe superar los 3 megabytes.";
-                }
+    for (const key in formData) {
+        if (key in formData) {
+            if (formData[key] === null || formData[key] === "") {
+                errors[key] = "Este campo no puede quedar vacío.";
             }
-            break;
-
+        }
+    }
+    switch (name) {
         case "name":
             if (!value) {
                 errors.name = "El nombre es obligatorio.";
+            } else if (/\d/.test(value)) {
+                errors.name = "El nombre no puede contener números.";
             } else {
                 errors.name = "";
             }
             break;
-
         case "height.min":
         case "height.max":
         case "weight.min":
         case "weight.max":
             if (isNaN(value) || value.trim() === "") {
                 errors[name] = "Ingrese un valor numérico válido.";
+            } else if (/[^0-9.]/.test(value)) {
+                errors[name] = "Ingrese solo números.";
             } else {
                 errors[name] = "";
-
                 const fieldNameParts = name.split(".");
                 const fieldCategory = fieldNameParts[0];
-                const subFieldName = fieldNameParts[1];
 
                 if (
                     formData[fieldCategory].min !== "" &&
                     formData[fieldCategory].max !== "" &&
                     Number(formData[fieldCategory].max) <= Number(formData[fieldCategory].min)
                 ) {
-                    errors[`${fieldCategory}.max`] = "El valor máximo no puede ser menor que el valor mínimo.";
+                    errors[`${fieldCategory}.max`] = "El valor máximo no puede ser menor o igual que el valor mínimo.";
                 }
             }
             break;
@@ -55,8 +51,8 @@ const validateField = (name, value, setErrors, formData) => {
             break;
 
         case "temperament":
-            if (value.length === 0) {
-                errors.temperament = "Seleccione al menos un temperamento.";
+            if (value.length < 3) {
+                errors.temperament = "Seleccione al menos 3";
             } else {
                 errors.temperament = "";
             }
@@ -65,8 +61,7 @@ const validateField = (name, value, setErrors, formData) => {
         default:
             break;
     }
-
-    setErrors(errors);
+    return errors;
 };
 
 export default validateField;

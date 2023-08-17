@@ -1,7 +1,7 @@
 .DogCard {
     text-decoration-line: none;
     color: #000;
-    background-color: #99C0E1;
+    background-color: #eec99c;
     background-size: cover;
     background-position: center;
     box-shadow: inset 0 0 10px 0 var(--yellow);
@@ -9,6 +9,8 @@
     height: 700px; /* Tamaño fijo del contenedor */
     padding: 0.5rem;
     border-radius: 1.5rem;
+    border-style: double;
+    border-color: aliceblue;
     transform: scale(0.6);
     margin-top: 1rem;
     margin-bottom: -15rem;
@@ -17,20 +19,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
     font-family: "Austie";
-
   }
-
-.dogImage{
-    transform: scale(0.6);
-    padding-top: 3rem;
-    margin-bottom: .5rem;
-    width: 20rem; /* Establece un ancho fijo para las imágenes */
-    height: 20rem; /* Establece una altura fija para las imágenes */
+.DogCard:hover{
+    transform: scale(0.7);
 }
-
-.temperament{
+.dogImage{
+    padding: 5rem;
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+    max-width: 15rem;
+    max-height: 15rem; 
+    border-radius: 6rem;
+}
+.tempTitle{
+    font-weight: bolder;
+}
+.temperaments{
     display: grid;
-    grid-auto-flow: column;
+    grid-template-columns: repeat(3, 2fr); /* Organiza en 2 columnas con el mismo ancho */
+    gap: 0.2rem; /* Agrega un espacio entre los elementos */
+    margin-top: -1rem;
+    margin-bottom: -1rem;
 }

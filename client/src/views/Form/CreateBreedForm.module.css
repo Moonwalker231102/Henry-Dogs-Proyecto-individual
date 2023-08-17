@@ -1,3 +1,21 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-color: #ffd9ab;
+    background-position: inherit;
+    overflow: auto;
+    padding: 10%;
+    margin: -10rem;
+}
+
+.formTitle{
+    font-family: "Austie";
+    color: #461a1a;
+}
+
 .fileInputContainer {
     display: flex;
     flex-direction: column;
@@ -6,16 +24,19 @@
 }
 
 .fileInputLabel{
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
+    background-color: #e4c5c4;
+    color: #8b4513;
+    padding: .5rem 3rem;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: "Austie";
+    font-weight: bold;
+    margin-left: -2rem;
 }
 
 .fileInputLabel:hover {
-    background-color: #0056b3;
+    background-color: rgba(139, 69, 19, 0.5)
 }
 
 .fileInput {
@@ -27,6 +48,65 @@
     border-radius: .5rem;
 }
 .error {
-    color: red;
+    color: #dc143c;
     margin-top: 5px;
+    font-family: "Austie";
 }
+
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.temperamentTitle{
+    color: #8b4513;
+    font-family: "Austie";
+    margin-top: -1rem;
+}
+
+.liItem{
+    color: #8b4513;
+    width: 10rem;
+    font-family: "Austie";
+}
+
+.selectTempButton{
+    font-family: "Austie";
+    color: #461a1a;
+    font-weight: bold;
+    background-color: #e4c5c4;
+    border: none;
+    border-radius: 5px;
+    transform: scale(1.2);
+    transition: background-color 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.selectTempButton:hover{
+    background-color: rgba(139, 69, 19, 0.5);
+    cursor: pointer;
+}
+.submitButton{
+    margin-top: 1rem;
+    font-family: "Austie";
+    color: #461a1a;
+    font-weight: bold;
+    background-color: #cba075;
+    border: none;
+    border-radius: 5px;
+    transform: scale(1.5);
+    transition: background-color 0.3s ease;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+}
+
+
+.submitButton:hover{
+    background-color: #996b42;
+    cursor: pointer;
+}
+
+

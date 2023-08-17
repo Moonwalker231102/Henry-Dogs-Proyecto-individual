@@ -7,6 +7,7 @@ const Card = ({id, name, image,weight, temperament, created}) => {
             <img src={image} alt="DogImage" className={styles.dogImage}/>
             <h2>{name}</h2>
             <h3>Weight: {weight}</h3>
+            <h3 className={styles.tempTitle}>Temperament: </h3>
             <ul className={styles.temperaments}>
                 {temperament && 
                     temperament.map((temp, index) => (

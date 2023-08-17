@@ -83,7 +83,7 @@ const FilterOptions = ({ isOpen, onClose }) => {
                             </option>
                         ))}
                 </select>
-                        <button onClick={handleFilterTemperament}>Apply</button>
+                        <button onClick={handleFilterTemperament}>Filter by temperament</button>
                 <div>
                     <label>
                         <input

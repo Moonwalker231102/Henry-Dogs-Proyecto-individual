@@ -37,6 +37,7 @@ const Home = () => {
     return (
 
         <div className={styles.Home}>
+            <h1 className={styles.homeTitle}>Henry dogs</h1>
             <Navbar setOpenModal={setOpenModal} />
             <FilterOptions isOpen={openModal} onClose={handleCloseModal} />
             <CardsContainer className={styles.cards} />

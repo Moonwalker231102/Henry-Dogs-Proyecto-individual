@@ -22,8 +22,8 @@ export const handleInputChange = (event, formData, setFormData, setErrors) => {
             [name]: value,
         }));
     }
-
-    validateField(name, value, setErrors, formData);
+    const errors = validateField(name, value, formData);
+    setErrors(errors);
 };
 
 const uploadImage = async (file) => {
@@ -47,7 +47,7 @@ const uploadImage = async (file) => {
 };
 
 
-export const handleImageChange = async (event, setFormData, setImagePreview) => {
+export const handleImageChange = async (event, setFormData, setImagePreview, formData, setErrors) => {
     const file = event.target.files[0]; // Get the selected file from the input
     if (!file) {
         return;
@@ -64,15 +64,23 @@ export const handleImageChange = async (event, setFormData, setImagePreview) => 
     } catch (error) {
         console.error("Error uploading image:", error);
     }
-}
+    const errors = validateField(null, null, formData);
+    setErrors(errors);
+};
 
-export const handleSubmit = async (event, formData, setErrors) => {
+
+
+
+export const handleSubmit = async (event, formData, navigate, setErrors) => {
     event.preventDefault();
+    
+    // Validar campos vacíos
+    const errors = validateField(null, null, formData);
 
-    const errors = {};
-
-    // Validate all fields before submitting
-
+    if (Object.keys(errors).length > 0) {
+        setErrors(errors);
+        return; // Detener el envío del formulario si hay campos vacíos
+    }
 
     // Convert height and weight objects to strings in the desired format
     const heightString = `${formData.height.min} - ${formData.height.max}`;
@@ -85,10 +93,12 @@ export const handleSubmit = async (event, formData, setErrors) => {
     };
 
     try {
-        console.log(formDataToSend);
-        const response = await createBreed(formDataToSend);
-        return response; // Llamar a la función de envío
+        const response = await createBreed(formDataToSend); // Supongo que tienes la función createBreed para enviar la información
+        // Realizar cualquier otro manejo necesario de la respuesta
+        
+        navigate("/home"); // Redirigir después de enviar el formulario
     } catch (error) {
         console.error("Error:", error);
     }
 };
+
