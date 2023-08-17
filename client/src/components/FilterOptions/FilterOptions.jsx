@@ -75,7 +75,7 @@ const FilterOptions = ({ isOpen, onClose }) => {
                 <button onClick={handleCleanButton}>Clear</button>
                 <button onClick={() => onClose()}>x</button>
                 <select value={temperament} onChange={handleTemperamentChange}>
-                    <option value="">Seleccione un temperamento</option>
+                    <option value="Select a temperament">Select a temperament</option>
                     {temperaments &&
                         temperaments.map((temp) => (
                             <option key={temp.name} value={temp.name}>
